@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Luy</title>
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos da tela de entrada */
+        #entry-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index: 1000;
+            transition: opacity 1s ease-in-out;
+            opacity: 1;
+        }
+
+        #entry-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .enter-text {
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.7; }
+            to { transform: scale(1.05); opacity: 1; }
+        }
+
+        /* Estilos do conteúdo principal */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-image: url('fundo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+        
+        #main-content.visible {
+            display: flex;
+            opacity: 1;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            max-width: 350px;
+            width: 90%;
+            animation: fadeIn 1s ease-out;
+            margin: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #007bff;
+            margin-bottom: 20px;
+        }
+
+        .name {
+            font-size: 2.2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #007bff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 2.5em;
+            margin: 0 15px;
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+            display: inline-block;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: #00bcd4;
+        }
+        
+        .audio-control {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .audio-control i {
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .audio-control:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <div id="entry-screen">
+        <div class="enter-text">
+            click to enter...
+        </div>
+    </div>
+
+    <div id="main-content">
+        <audio id="background-music" loop>
+            <source src="1. Apollo - O que você sente？.mp3" type="audio/mpeg">
+        </audio>
+
+        <button id="audio-toggle" class="audio-control">
+            <i class="fas fa-volume-up"></i>
+        </button>
+
+        <div class="container">
+            <img src="4f15c01d5f8d6f67ef084430bbd7ed84.png" alt="Foto de Perfil" class="profile-pic">
+            
+<h1 class="name">Luy</h1>
+
+            <div class="social-icons">
+                <a href="https://www.roblox.com/pt/users/2712553626/profile" target="_blank" aria-label="Roblox">
+                    <i class="fas fa-gamepad"></i>
+                </a>
+                
+<a href="#" target="_blank" aria-label="Spotify">
+                    <i class="fab fa-spotify"></i>
+                </a>
+                
+<a href="https://www.instagram.com/gs.zsz/" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const entryScreen = document.getElementById('entry-screen');
+        const mainContent = document.getElementById('main-content');
+        const audio = document.getElementById('background-music');
+        const audioToggle = document.getElementById('audio-toggle');
+        const audioIcon = audioToggle.querySelector('i');
+        
+        entryScreen.addEventListener('click', () => {
+            entryScreen.classList.add('hidden');
+            mainContent.classList.add('visible');
+            audio.play();
+        });
+
+        audioToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                audioIcon.classList.remove('fa-volume-mute');
+                audioIcon.classList.add('fa-volume-up');
+            } else {
+                audio.pause();
+                audioIcon.classList.remove('fa-volume-up');
+                audioIcon.classList.add('fa-volume-mute');
+            }
+        });
+
+        audio.addEventListener('play', () => {
+            audioIcon.classList.remove('fa-volume-mute');
+            audioIcon.classList.add('fa-volume-up');
+        });
+
+        audio.addEventListener('pause', () => {
+            audioIcon.classList.remove('fa-volume-up');
+            audioIcon.classList.add('fa-volume-mute');
+        });
+        
+        // Código para a música começar a partir do segundo 29
+        audio.addEventListener('loadedmetadata', () => {
+            if (audio.readyState >= 2) {
+                audio.currentTime = 29;
+            }
+        });
+    </script>
+</body>
+</html>
